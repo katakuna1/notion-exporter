@@ -2,9 +2,9 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Download, AlertCircle, Loader2, Info, UploadCloud, Moon, Sun } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button as UIButton } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ExportSettings } from "@/components/export-settings"
 import { PDFPreview } from "@/components/pdf-preview"
@@ -33,6 +33,11 @@ export function NotionExporter() {
   const [isLoading, setIsLoading] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Drag and drop/file input handler
   const handleFile = async (file: File) => {
@@ -119,37 +124,34 @@ export function NotionExporter() {
 
   return (
     <div className="grid gap-6 place-items-center">
-      <div className="flex items-center justify-center gap-2 mb-2">
-        <h1 className="text-3xl font-bold tracking-tight text-center">Notion PDF Exporter</h1>
-        <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="About">
-              <Info className="h-5 w-5" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>About Notion PDF Exporter</DialogTitle>
-              <DialogDescription>
-                This tool allows you to export Notion documents into PDF. In Notion, use the Export option and choose HTML, then upload the resulting .html file here.
-                <h3 className="mt-2 text-lg font-medium">How to use</h3>
-                <ol className="mt-2 list-inside list-decimal space-y-2">
-                  <li>In Notion, click the three dots (•••) at the top right and choose Export → HTML</li>
-                  <li>Upload the exported .html file here</li>
-                  <li>Click Export to download your perfectly formatted PDF</li>
-                </ol>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label="Toggle Theme"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        >
-          {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </Button>
+      <div className="flex flex-col items-center justify-center gap-2 mb-2">
+        <img src="/notion-logo.png" alt="Notion Exporter Logo" className="h-24 w-auto mb-2 bg-white rounded-xl p-3 shadow" />
+        <div className="flex items-center justify-center gap-2">
+          <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
+            <DialogTrigger asChild>
+              <UIButton {...({ variant: "outline", size: "icon", "aria-label": "About" } as any)}>
+                <Info className="h-5 w-5" />
+              </UIButton>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>About Notion PDF Exporter</DialogTitle>
+                <DialogDescription>
+                  This tool allows you to export Notion documents into PDF. In Notion, use the Export option and choose HTML, then upload the resulting .html file here.
+                  <h3 className="mt-2 text-lg font-medium">How to use</h3>
+                  <ol className="mt-2 list-inside list-decimal space-y-2">
+                    <li>In Notion, click the three dots (•••) at the top right and choose Export → HTML</li>
+                    <li>Upload the exported .html file here</li>
+                    <li>Click Export to download your perfectly formatted PDF</li>
+                  </ol>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          <UIButton {...({ variant: "outline", size: "icon", "aria-label": "Toggle Theme", onClick: () => setTheme(resolvedTheme === "dark" ? "light" : "dark") } as any)}>
+            {mounted && (resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />)}
+          </UIButton>
+        </div>
       </div>
       <p className="text-center text-muted-foreground mb-4">Export your Notion documents into PDF with full formatting, images, and custom settings</p>
       <div className="w-full flex justify-center">
@@ -215,7 +217,7 @@ export function NotionExporter() {
             />
           </div>
           {/* Export */}
-          <Button
+          <UIButton
             onClick={handleExportPDF}
             className="mt-8 w-full max-w-xs self-center"
             disabled={exporting}
@@ -231,7 +233,7 @@ export function NotionExporter() {
                 Export to PDF
               </>
             )}
-          </Button>
+          </UIButton>
         </div>
       )}
     </div>
