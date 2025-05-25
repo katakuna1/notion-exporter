@@ -125,7 +125,7 @@ export function NotionExporter() {
   return (
     <div className="grid gap-6 place-items-center">
       <div className="flex flex-col items-center justify-center gap-2 mb-2">
-        <img src="/notion-logo.png" alt="Notion Exporter Logo" className="h-24 w-auto mb-2 bg-white rounded-xl p-3 shadow" />
+        <img src="/notion-logo.png" alt="Notion Exporter Logo" className="w-[500px] max-w-full mb-2 bg-white rounded-xl p-3 shadow" />
         <div className="flex items-center justify-center gap-2">
           <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
             <DialogTrigger asChild>
