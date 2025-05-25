@@ -142,7 +142,7 @@ export function NotionExporter() {
                   <ol className="mt-2 list-inside list-decimal space-y-2">
                     <li>In Notion, click the three dots (•••) at the top right and choose Export → HTML</li>
                     <li>Upload the exported .html file here</li>
-                    <li>Click Export to download your perfectly formatted PDF</li>
+                    <li>Click *Export to PDF* to download your perfectly formatted PDF</li>
                   </ol>
                 </DialogDescription>
               </DialogHeader>
