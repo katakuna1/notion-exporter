@@ -16,7 +16,7 @@ Simple, customizable, and efficient – with full formatting, images, and custom
 
 ### ⚙️ How to Use
 
-1. Export your Notion page as HTML (`Export → HTML`)  
-2. Drag & drop the `.html` file into the app  
-3. Customize settings (coming soon)  
-4. Download your beautiful PDF
+1. In Notion, click the three dots (•••) at the top right and choose **Export → HTML**
+2. Upload the exported `.html` file
+3. Click **Export to PDF**
+4. Download your perfectly formatted PDF
